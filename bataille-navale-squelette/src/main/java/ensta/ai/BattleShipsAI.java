@@ -154,8 +154,8 @@ public class BattleShipsAI implements Serializable {
 	 * @return suitable coords, or null if none is suitable
 	 */
 	private Coords pickVCoords() {
-		int x = lastStrike.getX();
-		int y = lastStrike.getY();
+		int x = (int) lastStrike.getX();
+		int y = (int) lastStrike.getY();
 
 		for (int iy : new int[] { y - 1, y + 1 }) {
 			Coords coords = new Coords(x, iy);
@@ -172,8 +172,8 @@ public class BattleShipsAI implements Serializable {
 	 * @return suitable coords, or null if none is suitable
 	 */
 	private Coords pickHCoords() {
-		int x = lastStrike.getX();
-		int y = lastStrike.getY();
+		int x = (int) lastStrike.getX();
+		int y = (int) lastStrike.getY();
 
 		for (int ix : new int[] { x - 1, x + 1 }) {
 			Coords coords = new Coords(ix, y);
