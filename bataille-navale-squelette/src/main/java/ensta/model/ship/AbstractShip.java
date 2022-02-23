@@ -14,10 +14,11 @@ public class AbstractShip {
         this.name = ship_name;
         this.length = ship_length;
         this.ship_orientation = o;
+        this.strikeCount = 0;
     }
 
-    public AbstractShip(){this.ship_orientation = Orientation.EAST;}
-    public AbstractShip(Orientation o ){this.ship_orientation =o; }
+    public AbstractShip(){this.ship_orientation = Orientation.EAST;this.strikeCount = 0;}
+    public AbstractShip(Orientation o ){this.ship_orientation =o; this.strikeCount = 0; }
 
 
     public Character getLabel(){
@@ -36,7 +37,7 @@ public class AbstractShip {
     }
 
     public void setOrientation(Orientation o) {
-        ship_orientation = o;
+        this.ship_orientation = o;
     }
 
     public boolean isSunk() {
@@ -44,6 +45,10 @@ public class AbstractShip {
 			return true;
 		}
 		return false;
+    }
+
+    public void addStrikeCount(){
+        this.strikeCount +=1;
     }
 
  

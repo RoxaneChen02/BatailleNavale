@@ -62,10 +62,10 @@ public class Board implements IBoard {
 		System.out.print("\n");
 
 		for (int i = 0 ; i<this.size ; i++){
-			if ((i+1) < 10) System.out.print((i+1) + "  ");
-			else System.out.print((i+1) + " ");
+			if ((i) < 10) System.out.print((i) + "  ");
+			else System.out.print((i) + " ");
 			for (int j = 0 ; j< this.size ; j++){
-				if (this.ships[i][j].getShip() !=null) System.out.print(" "+this.ships[i][j].getShip().getLabel());
+				if (this.ships[i][j].getShip() !=null) System.out.print(" "+this.ships[i][j].toString());
 				else System.out.print(" .");
 			}
 			System.out.print("\n");
@@ -80,8 +80,8 @@ public class Board implements IBoard {
 		System.out.print("\n");
 
 		for (int i = 0 ; i<this.size ; i++){
-			if ((i+1) < 10) System.out.print((i+1) + "  ");
-			else System.out.print((i+1) + " ");
+			if ((i) < 10) System.out.print((i) + "  ");
+			else System.out.print((i) + " ");
 			for (int j = 0 ; j<this.size ; j++){
 				if (hits[i][j]==null) System.out.print(" .");
 				else if (hits[i][j]==false) System.out.print(" x");
@@ -101,6 +101,7 @@ public class Board implements IBoard {
 			int x = coords.getX();
 			int y = coords.getY();
 			Orientation o = ship.getOrientation();
+			System.out.print(o.toString());
 			
 			if (o == Orientation.EAST) {
 				for (int k = 0;k<ship.getLength();++k){
@@ -155,8 +156,25 @@ public class Board implements IBoard {
 	}
 
 	public Hit sendHit(Coords res){
-
-		return null;
+		int x = res.getX();
+		int y = res.getY();
+		if(hasShip(new Coords(x,y))){
+			if (ships[y][x].isStruck()){ System.out.print("already struck \n"); return Hit.MISS; }
+			else{
+			System.out.print("on entre \n");
+			ships[y][x].addStrike();
+			
+			
+			if(ships[y][x].isSunk()){
+				Character ship = ships[y][x].getShip().getLabel(); 
+				if (ship == 'D') { System.out.print("D coulé \n") ;return Hit.DESTROYER;}
+				else if (ship == 'B') { System.out.print("B coulé \n") ;return Hit.BATTLESHIP;}
+				else if (ship == 'C') { System.out.print("C coulé \n") ;return Hit.CARRIER;}
+				else if (ship == 'S') { System.out.print("S coulée \n") ;return Hit.SUBMARINE;}
+			} 
+			return Hit.STRIKE;}
+		}
+		else return Hit.MISS;
 		
 	}
 
