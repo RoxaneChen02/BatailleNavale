@@ -7,6 +7,7 @@ public class AbstractShip {
     private String name;
     private int length;
     private Orientation ship_orientation;
+    private int strikeCount;
 
     public AbstractShip(Character ship_label, String ship_name, int ship_length, Orientation o  ) {
         this.label = ship_label;
@@ -38,11 +39,12 @@ public class AbstractShip {
         ship_orientation = o;
     }
 
-
     public boolean isSunk() {
-        return false;
+        if(strikeCount == this.length){
+			return true;
+		}
+		return false;
     }
 
-    
-
+ 
 }

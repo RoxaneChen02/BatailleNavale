@@ -1,6 +1,8 @@
 package ensta.model;
 
 import ensta.model.ship.AbstractShip;
+import ensta.model.ship.ShipState;
+import ensta.util.ColorUtil;
 import ensta.util.Orientation;
 
 public class Board implements IBoard {
@@ -8,23 +10,24 @@ public class Board implements IBoard {
 	private static final int DEFAULT_SIZE = 10;
 	private int size;
 	private String name;
-	private Character ships[][];
+	private ShipState ships[][];
 	private Boolean hits[][];
+
 
 	public Board(String board_name, int board_size) {
 		this.name = board_name;
 		this.size = board_size;
-		this.ships = new Character[board_size][board_size];
+		this.ships = new ShipState[board_size][board_size];
 		for (int i = 0 ; i<board_size;++i){
 			for (int j =0 ; j<board_size;++j){
-				ships[i][j] = '.';
+				ships[i][j] = new ShipState();
 			}
 		}
 
 		this.hits = new Boolean[board_size][board_size];
 		for (int i = 0 ; i<board_size;++i){
 			for (int j =0 ; j<board_size;++j){
-				hits[i][j] = false;
+				hits[i][j] = null;
 			}
 		}
 	}
@@ -32,16 +35,16 @@ public class Board implements IBoard {
 	public Board(String board_name){
 		this.name = board_name;
 		this.size = DEFAULT_SIZE;
-		this.ships = new Character[DEFAULT_SIZE][DEFAULT_SIZE];
+		this.ships = new ShipState[DEFAULT_SIZE][DEFAULT_SIZE];
 		for (int i = 0 ; i<DEFAULT_SIZE;++i){
 			for (int j =0 ; j<DEFAULT_SIZE;++j){
-				ships[i][j] = '.';
+				ships[i][j] = new ShipState();
 			}
 		}
 		this.hits = new Boolean[DEFAULT_SIZE][DEFAULT_SIZE];
 		for (int i = 0 ; i<DEFAULT_SIZE;++i){
 			for (int j =0 ; j<DEFAULT_SIZE;++j){
-				hits[i][j] = false;
+				hits[i][j] = null;
 			}
 		}
 	}
@@ -62,7 +65,8 @@ public class Board implements IBoard {
 			if ((i+1) < 10) System.out.print((i+1) + "  ");
 			else System.out.print((i+1) + " ");
 			for (int j = 0 ; j< this.size ; j++){
-				System.out.print(" "+this.ships[i][j]);
+				if (this.ships[i][j].getShip() !=null) System.out.print(" "+this.ships[i][j].getShip().getLabel());
+				else System.out.print(" .");
 			}
 			System.out.print("\n");
 		}
@@ -79,8 +83,9 @@ public class Board implements IBoard {
 			if ((i+1) < 10) System.out.print((i+1) + "  ");
 			else System.out.print((i+1) + " ");
 			for (int j = 0 ; j<this.size ; j++){
-				if (hits[i][j]==false) System.out.print(" .");
-				else System.out.print(" x");
+				if (hits[i][j]==null) System.out.print(" .");
+				else if (hits[i][j]==false) System.out.print(" x");
+				else if (hits[i][j] == true ) System.out.print(" "+ ColorUtil.colorize('x', ColorUtil.Color.RED));
 			}
 			System.out.print("\n");
 		}
@@ -99,24 +104,24 @@ public class Board implements IBoard {
 			
 			if (o == Orientation.EAST) {
 				for (int k = 0;k<ship.getLength();++k){
-					ships[y][x+k] = ship.getLabel();
+					ships[y][x+k] = new ShipState(ship);
 				}
 				
 			}else if (o == Orientation.SOUTH) {
 
 				for (int k = 0;k<ship.getLength();++k){
-					this.ships[y+k][x] = ship.getLabel();
+					this.ships[y+k][x] = new ShipState(ship);
 				}
 			
 				
 			} else if (o == Orientation.NORTH) {
 
 				for (int k = 0;k<ship.getLength();++k){
-					ships[y-k][x] = ship.getLabel();
+					ships[y-k][x]= new ShipState(ship);
 				}
 			} else if (o == Orientation.WEST) {
 				for (int k = 0;k<ship.getLength();++k){
-					ships[y][x-k] = ship.getLabel();
+					ships[y][x-k]= new ShipState(ship);
 				}
 			}
 			return true;
@@ -128,7 +133,7 @@ public class Board implements IBoard {
 	
 	public boolean hasShip(Coords coords){
 		
-		if (this.ships[coords.getY()][coords.getX()] != '.'){
+		if (this.ships[coords.getY()][coords.getX()].getShip() != null){
 			return true;
 		}
 		else return false;
@@ -136,6 +141,7 @@ public class Board implements IBoard {
 
 	public void setHit(boolean hit, Coords coords){
 		if(hasShip(coords)){
+
 			hit = true;
 		}
 		else hit = false;
@@ -193,4 +199,6 @@ public class Board implements IBoard {
 
 		return true;
 	}
+
+
 }
