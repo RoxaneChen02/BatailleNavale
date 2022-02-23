@@ -48,7 +48,7 @@ public interface IBoard {
     * @return status for the hit (eg : strike or miss)
     */
 
-	public Hit sendHit(Coords res);
+	public Hit sendHit(Coords coords);
 
 	public boolean canPutShip(AbstractShip ship, Coords coords);
 }

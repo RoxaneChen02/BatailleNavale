@@ -60,7 +60,7 @@ public class Player {
 			}
 
 			if(res.orientation .equals("west")){
-				System.out.print("on entre");
+				
 				ship.setOrientation(Orientation.WEST);
 				
 			}

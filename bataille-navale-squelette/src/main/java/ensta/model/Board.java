@@ -85,7 +85,7 @@ public class Board implements IBoard {
 			for (int j = 0 ; j<this.size ; j++){
 				if (hits[i][j]==null) System.out.print(" .");
 				else if (hits[i][j]==false) System.out.print(" x");
-				else if (hits[i][j] == true ) System.out.print(" "+ ColorUtil.colorize('x', ColorUtil.Color.RED));
+				else if (hits[i][j] == true ) System.out.print(" "+ ColorUtil.colorize("x", ColorUtil.Color.RED));
 			}
 			System.out.print("\n");
 		}
@@ -142,27 +142,27 @@ public class Board implements IBoard {
 
 	public void setHit(boolean hit, Coords coords){
 		if(hasShip(coords)){
-
 			hit = true;
 		}
 		else hit = false;
 	}
 
 	public Boolean getHit(Coords coords){
-		if(hasShip(coords)){
-			return true;
-		}
-		else return false;
+		
+		return hits[coords.getY()][coords.getX()];
 	}
 
 	public Hit sendHit(Coords res){
+		
 		int x = res.getX();
 		int y = res.getY();
 		if(hasShip(new Coords(x,y))){
+			hits[y][x] = true;
 			if (ships[y][x].isStruck()){ System.out.print("already struck \n"); return Hit.MISS; }
 			else{
-			System.out.print("on entre \n");
+			
 			ships[y][x].addStrike();
+			
 			
 			
 			if(ships[y][x].isSunk()){
@@ -174,7 +174,7 @@ public class Board implements IBoard {
 			} 
 			return Hit.STRIKE;}
 		}
-		else return Hit.MISS;
+		else{hits[y][x] = false; return Hit.MISS;} 
 		
 	}
 
