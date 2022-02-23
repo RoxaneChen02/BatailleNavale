@@ -9,7 +9,7 @@ public class Board implements IBoard {
 	private int size;
 	private String name;
 	private Character ships[][];
-	private Boolean hits[][];//pense à verouiller ton pc
+	private Boolean hits[][];
 
 	public Board(String board_name, int board_size) {
 		this.name = board_name;
@@ -90,21 +90,66 @@ public class Board implements IBoard {
 		return size;}
 
 	public boolean putShip(AbstractShip ship, Coords coords){
-		return true;
+		
+		if(canPutShip(ship, coords)){
+			
+			int x = coords.getX();
+			int y = coords.getY();
+			Orientation o = ship.getOrientation();
+			
+			if (o == Orientation.EAST) {
+				for (int k = 0;k<ship.getLength();++k){
+					ships[y][x+k] = ship.getLabel();
+				}
+				
+			}else if (o == Orientation.SOUTH) {
+
+				for (int k = 0;k<ship.getLength();++k){
+					this.ships[y+k][x] = ship.getLabel();
+				}
+			
+				
+			} else if (o == Orientation.NORTH) {
+
+				for (int k = 0;k<ship.getLength();++k){
+					ships[y-k][x] = ship.getLabel();
+				}
+			} else if (o == Orientation.WEST) {
+				for (int k = 0;k<ship.getLength();++k){
+					ships[y][x-k] = ship.getLabel();
+				}
+			}
+			return true;
+		}
+		System.out.print("error ship cannot be put at : (" + coords.getX() +","+coords.getY()+ ") \n");
+		return false;
+		
 	}
 	
 	public boolean hasShip(Coords coords){
-		return true;
+		
+		if (this.ships[coords.getY()][coords.getX()] != '.'){
+			return true;
+		}
+		else return false;
 	}
 
 	public void setHit(boolean hit, Coords coords){
-		
+		if(hasShip(coords)){
+			hit = true;
+		}
+		else hit = false;
 	}
+
 	public Boolean getHit(Coords coords){
-		return true;
+		if(hasShip(coords)){
+			return true;
+		}
+		else return false;
 	}
 
 	public Hit sendHit(Coords res){
+
 		return null;
 		
 	}
@@ -112,6 +157,8 @@ public class Board implements IBoard {
 	public boolean canPutShip(AbstractShip ship, Coords coords) {
 		Orientation o = ship.getOrientation();
 		int dx = 0, dy = 0;
+
+		
 		if (o == Orientation.EAST) {
 			if ((coords.getX() + ship.getLength()) >= this.size) {
 				return false;

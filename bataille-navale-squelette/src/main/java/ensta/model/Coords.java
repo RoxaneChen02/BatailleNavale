@@ -4,12 +4,18 @@ public class Coords {
     private int x, iy;
 
     public Coords(int x, int iy) {
+        this.x = x;
+        this.iy = iy;
     }
 
     public Coords() {
+        this.x= 0;
+        this.iy = 0;
     }
 
     public Coords(Coords coords) {
+        this.x = coords.getX();
+        this.iy = coords.getY();
     }
 
     public void setCoords(Coords res) {
