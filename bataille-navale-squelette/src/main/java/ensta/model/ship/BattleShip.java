@@ -3,7 +3,11 @@ package ensta.model.ship;
 import ensta.util.Orientation;
 
 public class BattleShip extends AbstractShip{
-    public BattleShip(String ship_label, String ship_name, int ship_length, Orientation o ){super(ship_label,ship_name, ship_length, o);}
+    String label = "B";
+    String name = "Battelship";
+    int length = 4;
+
+    public BattleShip(String label, String name, int length, Orientation o ){super(label,name,length, o);}
 
     public BattleShip(){super();}
 
