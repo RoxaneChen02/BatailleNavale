@@ -170,7 +170,7 @@ public class Game {
 			color = ColorUtil.Color.RED;
 		}
 		msg = String.format("%s Frappe en %c%d : %s", incoming ? "<=" : "=>", ((char) ('A' + coords.getX())),
-				(coords.getY() + 1), msg);
+				(coords.getY() ), msg);
 		return ColorUtil.colorize(msg, color);
 	}
 
