@@ -13,9 +13,9 @@ public class Player {
 	 */
 	private Board board;
 	protected Board opponentBoard;
-	private int destroyedCount;
+	private int destroyedCount = 0;
 	protected AbstractShip[] ships;
-	private boolean lose;
+	private boolean lose ;
 
 	/*
 	 * ** Constructeur
@@ -44,7 +44,7 @@ public class Player {
 			System.out.println(msg);
 			InputHelper.ShipInput res = InputHelper.readShipInput();
 
-			System.out.print(res.orientation);
+			
 			
 			if(res.orientation .equals("north")){
 
@@ -83,16 +83,34 @@ public class Player {
 	public Hit sendHit(Coords coords) {
 		boolean done = false;
 		Hit hit = null;
-
+		Coords t = new Coords();
+		
 		do {
+			
 			System.out.println("où frapper?");
 			InputHelper.CoordInput hitInput = InputHelper.readCoordInput();
 
-			coords = new Coords(hitInput.x, hitInput.y);
-			hit = opponentBoard.sendHit(coords);
+			t = new Coords(hitInput.x, hitInput.y+1);
+			if (t.isInBoard(board.getSize())){
+				if(this.board.getHit(t) != null){
+					System.out.print ("error already struck there \n");
+					done = false;
+				}
+				else{
+					hit = opponentBoard.sendHit(t);
+
+					if(hit != Hit.MISS && hit != Hit.STRIKE){++destroyedCount;}
+
+
+					done =true;}
+			}
+
+			else {System.out.print("Coords out of bound");done = false;}
+			
 		
 		} while (!done);
-
+		coords.setX(t.getX());
+		coords.setY(t.getY());
 		return hit;
 	}
 

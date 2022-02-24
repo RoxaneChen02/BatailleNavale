@@ -37,6 +37,8 @@ public class BattleShipsAI implements Serializable {
 	 */
 	private Boolean lastVertical;
 
+
+
 	/*
 	 * ** Constructeur
 	 */
@@ -66,12 +68,15 @@ public class BattleShipsAI implements Serializable {
 		Orientation[] orientations = Orientation.values();
 
 		for (AbstractShip ship : ships) {
+			
 			do {
 
-				coords = Coords.randomCoords(board.getSize());
+				
+				coords.setCoords(pickRandomCoords());
 				orientation = Orientation.randomOrientation();
 				ship.setOrientation(orientation);
 			} while (!board.canPutShip(ship, coords));
+
 			
 			board.putShip(ship, coords);
 			

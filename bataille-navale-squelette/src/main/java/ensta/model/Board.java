@@ -62,8 +62,10 @@ public class Board implements IBoard {
 		System.out.print("\n");
 
 		for (int i = 0 ; i<this.size ; i++){
-			if ((i) < 10) System.out.print((i) + "  ");
-			else System.out.print((i) + " ");
+			if (this.size>=10){
+				if ((i) < 10) System.out.print((i) + "  ");
+				else System.out.print((i) + " ");}
+				else System.out.print((i) + " ");
 			for (int j = 0 ; j< this.size ; j++){
 				if (this.ships[i][j].getShip() !=null) System.out.print(" "+this.ships[i][j].toString());
 				else System.out.print(" .");
@@ -80,7 +82,9 @@ public class Board implements IBoard {
 		System.out.print("\n");
 
 		for (int i = 0 ; i<this.size ; i++){
+			if (this.size>=10){
 			if ((i) < 10) System.out.print((i) + "  ");
+			else System.out.print((i) + " ");}
 			else System.out.print((i) + " ");
 			for (int j = 0 ; j<this.size ; j++){
 				if (hits[i][j]==null) System.out.print(" .");
@@ -101,7 +105,7 @@ public class Board implements IBoard {
 			int x = coords.getX();
 			int y = coords.getY();
 			Orientation o = ship.getOrientation();
-			System.out.print(o.toString());
+			
 			
 			if (o == Orientation.EAST) {
 				for (int k = 0;k<ship.getLength();++k){
@@ -141,10 +145,8 @@ public class Board implements IBoard {
 	}
 
 	public void setHit(boolean hit, Coords coords){
-		if(hasShip(coords)){
-			hit = true;
-		}
-		else hit = false;
+		hits[coords.getY()][coords.getX()] = hit;
+
 	}
 
 	public Boolean getHit(Coords coords){
@@ -156,13 +158,10 @@ public class Board implements IBoard {
 		
 		int x = res.getX();
 		int y = res.getY();
+		//if (ships[y][x].isStruck()){ System.out.print("already struck \n"); return null; }
 		if(hasShip(new Coords(x,y))){
-			hits[y][x] = true;
-			if (ships[y][x].isStruck()){ System.out.print("already struck \n"); return Hit.MISS; }
-			else{
 			
-			ships[y][x].addStrike();
-			
+			this.ships[y][x].addStrike();
 			
 			
 			if(ships[y][x].isSunk()){
@@ -172,9 +171,9 @@ public class Board implements IBoard {
 				else if (ship == 'C') { System.out.print("C coulé \n") ;return Hit.CARRIER;}
 				else if (ship == 'S') { System.out.print("S coulée \n") ;return Hit.SUBMARINE;}
 			} 
-			return Hit.STRIKE;}
+			return Hit.STRIKE;
 		}
-		else{hits[y][x] = false; return Hit.MISS;} 
+		else{ return Hit.MISS;} 
 		
 	}
 
@@ -184,22 +183,22 @@ public class Board implements IBoard {
 
 		
 		if (o == Orientation.EAST) {
-			if ((coords.getX() + ship.getLength()) >= this.size) {
+			if ((coords.getX() + ship.getLength()) > this.size) {
 				return false;
 			}
 			dx = 1;
 		} else if (o == Orientation.SOUTH) {
-			if ((coords.getY()+ship.getLength()) >= this.size) {
+			if ((coords.getY()+ship.getLength()) > this.size) {
 				return false;
 			}
 			dy = 1;
 		} else if (o == Orientation.NORTH) {
-			if ((coords.getY() + 1 - ship.getLength()) < 0) {
+			if ((coords.getY() +1   - ship.getLength()) < 0) {
 				return false;
 			}
 			dy = -1;
 		} else if (o == Orientation.WEST) {
-			if ((coords.getX() + 1 - ship.getLength()) < 0) {
+			if ((coords.getX() +1 - ship.getLength()) < 0) {
 				return false;
 			}
 			dx = -1;

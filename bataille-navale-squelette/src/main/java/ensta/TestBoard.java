@@ -18,7 +18,12 @@ import ensta.ai.*;
 
 public class TestBoard {
     public static void main(String args[]) {
-        Board MyBoard = new Board("MyBoard",10);
+        Game game = new Game();
+        game = game.init();
+        game.run();
+
+
+        /*Board MyBoard = new Board("MyBoard",10);
         MyBoard.print();
         List<AbstractShip> ships = Arrays.asList(new AbstractShip[] { new Destroyer(), new Submarine(), new Submarine(), new BattleShip(),
             new Carrier() });
@@ -31,13 +36,13 @@ public class TestBoard {
             
             Coords coords  = new Coords();
             Hit hit = AIPlayer.sendHit(coords);
-            if (hit != Hit.MISS && hit!=Hit.STRIKE){
+            if (hit != Hit.MISS && hit!=Hit.STRIKE ){
                 ++shipSunk;
             }
             
             System.out.print(hit.toString()+ "\n");
             MyBoard.print();
-        }while(shipSunk<ships.size());
+        }while(shipSunk<ships.size());*/
 
         /*
         Player player = new Player(board_test, board_test_opponent, ships );
