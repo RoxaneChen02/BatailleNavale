@@ -11,7 +11,7 @@ il faut remplacer game = game.init(); par game = game.init_vs_AI() et game.run()
 Une fois le jeu lancer il suffit de placer les bateaux à l'aide d'une entrée de la forme  : A0 north, une fois tout les bateaux installés pour attaquer il suffit d'entrer l'attaque
 sous la forme : A0.
 
-# choix fait pour le code
+# Choix fait pour le code
 J'ai choisi de faire commencer mon tableau en 0. 
 
 # Gestion des erreurs 
