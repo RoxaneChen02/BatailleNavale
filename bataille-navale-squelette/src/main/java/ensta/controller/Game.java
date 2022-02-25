@@ -30,6 +30,7 @@ public class Game {
 	 */
 	private Player player1;
 	private Player player2;
+	private PlayerAI playerAI;
 	private Scanner sin;
 
 	/*
@@ -58,6 +59,26 @@ public class Game {
 		//}
 		return this;
 	}
+
+	public Game init_vs_AI() {
+		//if (!loadSave()) {
+
+			Board Board1 = new Board("Board1",10);
+			Board Board2 = new Board("Board2",10);
+			List<AbstractShip> list1 = createDefaultShips();
+			List<AbstractShip> list2 = createDefaultShips();
+
+			this.player1 = new Player(Board1, Board2, list1 );
+			this.playerAI = new PlayerAI(Board2, Board1, list2 );
+			playerAI.putShips(list2.toArray(new AbstractShip[0]));
+
+			player1.putShips();
+			
+			
+		//}
+		return this;
+	}
+
 
 	/*
 	 * *** Méthodes
@@ -101,6 +122,62 @@ public class Game {
 					
 					System.out.println(makeHitMessage(true /* incoming hit */, coords,  hit));
 					done = updateScore();
+
+					if (!done) {
+//						save();
+					}
+				} while (strike && !done);
+			}
+
+		} while (!done);
+
+		SAVE_FILE.delete();
+		System.out.println(String.format("joueur %d gagne", player1.isLose() ? 2 : 1));
+		//sin.close();
+	}
+
+
+	public void run_vs_AI() {
+
+		System.out.print (" LA PARTIE COMMENCE ");
+		Coords coords = new Coords();
+		Board b1 = player1.getBoard();
+		Board b2 = playerAI.getBoard();
+		Hit hit;
+
+		// main loop
+		b1.print();
+		boolean done;
+		do {
+			System.out.print("le joueur1 joue " + "voici son board : \n");
+			b1.print();
+			hit = Hit.MISS; 
+			hit = player1.sendHit(coords);
+			boolean strike = hit != Hit.MISS; 
+			b1.setHit(strike, coords);
+			b1.print();
+			
+			done = updateScore_vs_AI();
+			
+			System.out.println(makeHitMessage(false /* outgoing hit */, coords, hit));
+
+			// save();
+
+			if (!done && !strike) {
+				do {
+
+					System.out.print("le joueur2 joue " + "voici son board : \n");
+					b2.print();
+					hit = Hit.MISS; 
+					hit = playerAI.sendHit(coords);
+					strike = hit != Hit.MISS;
+
+					if (strike) {
+						b1.print();
+					}
+					
+					System.out.println(makeHitMessage(true /* incoming hit */, coords,  hit));
+					done = updateScore_vs_AI();
 
 					if (!done) {
 //						save();
@@ -159,6 +236,25 @@ public class Game {
 		}
 		return false;
 	}
+
+	private boolean updateScore_vs_AI() {
+		for (Player player : new Player[] { player1, playerAI }) {
+			int destroyed = 0;
+			for (AbstractShip ship : player.getShips()) {
+				if (ship.isSunk()) {
+					destroyed++;
+				}
+			}
+
+			player.setDestroyedCount(destroyed);
+			player.setLose(destroyed == player.getShips().length);
+			if (player.isLose()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 
 	private String makeHitMessage(boolean incoming, Coords coords, Hit hit) {
 		String msg;

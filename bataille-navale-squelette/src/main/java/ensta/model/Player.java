@@ -73,7 +73,7 @@ public class Player {
 
 				board.print();
 			}
-			else System.out.print("error cannot put ship there");
+			
 
 			
 			
@@ -105,7 +105,7 @@ public class Player {
 					done =true;}
 			}
 
-			else {System.out.print("Coords out of bound");done = false;}
+			else {System.out.print("Coords out of bound \n");done = false;}
 			
 		
 		} while (!done);

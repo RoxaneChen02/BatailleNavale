@@ -158,7 +158,7 @@ public class Board implements IBoard {
 		
 		int x = res.getX();
 		int y = res.getY();
-		//if (ships[y][x].isStruck()){ System.out.print("already struck \n"); return null; }
+		
 		if(hasShip(new Coords(x,y))){
 			
 			this.ships[y][x].addStrike();

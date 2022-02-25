@@ -22,7 +22,7 @@ public class PlayerAI extends Player {
         ai = new BattleShipsAI(ownBoard, opponentBoard);
     }
 
-    // TODO AIPlayer must not inherit "keyboard behavior" from player. Call ai instead.
+    
 
 	public void putShips(AbstractShip ships[]) {
 		ai.putShips(ships);
