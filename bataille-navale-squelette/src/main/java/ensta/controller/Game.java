@@ -41,7 +41,7 @@ public class Game implements Serializable{
 	}
 
 	public Game init() {
-		if (!loadSave()) {
+		//if (!loadSave()) {
 
 			Board Board1 = new Board("Board1",10);
 			Board Board2 = new Board("Board2",10);
@@ -57,12 +57,12 @@ public class Game implements Serializable{
 			player2.putShips();
 			
 			
-		}
+		//}
 		return this;
 	}
 
 	public Game init_vs_AI() {
-		if (!loadSave()) {
+		//if (!loadSave()) {
 
 			Board Board1 = new Board("Board1",10);
 			Board Board2 = new Board("Board2",10);
@@ -76,7 +76,7 @@ public class Game implements Serializable{
 			player1.putShips();
 			
 			
-		}
+		//}
 		return this;
 	}
 
@@ -108,7 +108,7 @@ public class Game implements Serializable{
 			
 			System.out.println(makeHitMessage(false /* outgoing hit */, coords, hit));
 
-			 save();
+			// save();
 
 			if (!done && !strike) {
 				do {
@@ -125,7 +125,7 @@ public class Game implements Serializable{
 					done = updateScore();
 
 					if (!done) {
-						save();
+//						save();
 					}
 				} while (strike && !done);
 			}
@@ -162,7 +162,7 @@ public class Game implements Serializable{
 			
 			System.out.println(makeHitMessage(false /* outgoing hit */, coords, hit));
 
-			 save();
+			// save();
 
 			if (!done && !strike) {
 				do {
@@ -181,7 +181,7 @@ public class Game implements Serializable{
 					done = updateScore_vs_AI();
 
 					if (!done) {
-						save();
+//						save();
 					}
 				} while (strike && !done);
 			}
@@ -194,29 +194,29 @@ public class Game implements Serializable{
 	}
 
 	private void save() {
-		try {
-			
-			 if (!SAVE_FILE.exists()) {
-			 SAVE_FILE.getAbsoluteFile().getParentFile().mkdirs();
-			 }
-
-			// TODO bonus 2 : serialize players
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			// TODO bonus 2 : uncomment
+//			// if (!SAVE_FILE.exists()) {
+//			// SAVE_FILE.getAbsoluteFile().getParentFile().mkdirs();
+//			// }
+//
+//			// TODO bonus 2 : serialize players
+//
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	private boolean loadSave() {
-		if (SAVE_FILE.exists()) {
-			try {
-				// TODO bonus 2 : deserialize players
-
-				return true;
-			} catch (IOException | ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-		}
+//		if (SAVE_FILE.exists()) {
+//			try {
+//				// TODO bonus 2 : deserialize players
+//
+//				return true;
+//			} catch (IOException | ClassNotFoundException e) {
+//				e.printStackTrace();
+//			}
+//		}
 		return false;
 	}
 
