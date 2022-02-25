@@ -1,4 +1,5 @@
 package ensta.ai;
+import java.io.Serializable;
 import java.util.List;
 
 import ensta.model.Board;
@@ -8,7 +9,7 @@ import ensta.model.Player;
 import ensta.model.ship.AbstractShip;
 import ensta.util.Orientation;
 
-public class PlayerAI extends Player {
+public class PlayerAI extends Player implements Serializable {
     /* **
      * Attribut
      */

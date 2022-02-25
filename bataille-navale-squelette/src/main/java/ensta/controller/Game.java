@@ -2,6 +2,7 @@ package ensta.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -18,7 +19,7 @@ import ensta.model.ship.Destroyer;
 import ensta.model.ship.Submarine;
 import ensta.util.ColorUtil;
 
-public class Game {
+public class Game implements Serializable{
 
 	/*
 	 * *** Constante
@@ -40,7 +41,7 @@ public class Game {
 	}
 
 	public Game init() {
-		//if (!loadSave()) {
+		if (!loadSave()) {
 
 			Board Board1 = new Board("Board1",10);
 			Board Board2 = new Board("Board2",10);
@@ -56,12 +57,12 @@ public class Game {
 			player2.putShips();
 			
 			
-		//}
+		}
 		return this;
 	}
 
 	public Game init_vs_AI() {
-		//if (!loadSave()) {
+		if (!loadSave()) {
 
 			Board Board1 = new Board("Board1",10);
 			Board Board2 = new Board("Board2",10);
@@ -75,7 +76,7 @@ public class Game {
 			player1.putShips();
 			
 			
-		//}
+		}
 		return this;
 	}
 
@@ -107,7 +108,7 @@ public class Game {
 			
 			System.out.println(makeHitMessage(false /* outgoing hit */, coords, hit));
 
-			// save();
+			 save();
 
 			if (!done && !strike) {
 				do {
@@ -124,7 +125,7 @@ public class Game {
 					done = updateScore();
 
 					if (!done) {
-//						save();
+						save();
 					}
 				} while (strike && !done);
 			}
@@ -161,7 +162,7 @@ public class Game {
 			
 			System.out.println(makeHitMessage(false /* outgoing hit */, coords, hit));
 
-			// save();
+			 save();
 
 			if (!done && !strike) {
 				do {
@@ -180,7 +181,7 @@ public class Game {
 					done = updateScore_vs_AI();
 
 					if (!done) {
-//						save();
+						save();
 					}
 				} while (strike && !done);
 			}
@@ -193,29 +194,29 @@ public class Game {
 	}
 
 	private void save() {
-//		try {
-//			// TODO bonus 2 : uncomment
-//			// if (!SAVE_FILE.exists()) {
-//			// SAVE_FILE.getAbsoluteFile().getParentFile().mkdirs();
-//			// }
-//
-//			// TODO bonus 2 : serialize players
-//
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+		try {
+			
+			 if (!SAVE_FILE.exists()) {
+			 SAVE_FILE.getAbsoluteFile().getParentFile().mkdirs();
+			 }
+
+			// TODO bonus 2 : serialize players
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private boolean loadSave() {
-//		if (SAVE_FILE.exists()) {
-//			try {
-//				// TODO bonus 2 : deserialize players
-//
-//				return true;
-//			} catch (IOException | ClassNotFoundException e) {
-//				e.printStackTrace();
-//			}
-//		}
+		if (SAVE_FILE.exists()) {
+			try {
+				// TODO bonus 2 : deserialize players
+
+				return true;
+			} catch (IOException | ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
 		return false;
 	}
 
