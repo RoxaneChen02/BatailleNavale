@@ -9,4 +9,4 @@ il faut remplacer game = game.init(); par game = game.init_vs_AI() et game.run()
 
 
 Une fois le jeu lancer il suffit de placer les bateaux à l'aide d'une entrée de la forme  : A0 north, une fois tout les bateaux installés pour attaquer il suffit d'entrer l'attaque
-sous la forme : A0. Si on tente t'attaquer à un endroit où on a déjà attaqué le jeu demandera à rejouer le coup de même si on est out of bound il faudra entrer à nouveau une frappe.
+sous la forme : A0. Si on tente t'attaquer à un endroit où on a déjà attaqué le jeu demandera à rejouer le coup de même si on est out of bound il faudra entrer à nouveau une frappe (dans la méthode sendHit de Player.java) . 
