@@ -29,7 +29,7 @@ public class Game {
 	 * *** Attributs
 	 */
 	private Player player1;
-	private PlayerAI player2;
+	private Player player2;
 	private Scanner sin;
 
 	/*
@@ -45,12 +45,14 @@ public class Game {
 			Board Board2 = new Board("Board2",10);
 			List<AbstractShip> list1 = createDefaultShips();
 			List<AbstractShip> list2 = createDefaultShips();
-		
-			this.player1 = new Player(Board1, Board2, list1 );
-			this.player2 = new PlayerAI(Board2, Board1, list2 );
-			player2.putShips(list2.toArray(new AbstractShip[0]));
 			
+			this.player1 = new Player(Board1, Board2, list1 );
+			
+			this.player2 = new Player(Board2, Board1, list2 );
+			System.out.print("le joueur1 place ses bateaux \n ");
 			player1.putShips();
+			System.out.print("le joueur2 place ses bateaux \n ");
+			player2.putShips();
 			
 			
 		//}
@@ -65,6 +67,7 @@ public class Game {
 		System.out.print (" LA PARTIE COMMENCE ");
 		Coords coords = new Coords();
 		Board b1 = player1.getBoard();
+		Board b2 = player2.getBoard();
 		Hit hit;
 
 		// main loop
@@ -73,9 +76,9 @@ public class Game {
 		do {
 			System.out.print("le joueur1 joue " + "voici son board : \n");
 			b1.print();
-			hit = Hit.MISS; // TODO player1 send a hit
+			hit = Hit.MISS; 
 			hit = player1.sendHit(coords);
-			boolean strike = hit != Hit.MISS; // TODO set this hit on his board (b1)
+			boolean strike = hit != Hit.MISS; 
 			b1.setHit(strike, coords);
 			b1.print();
 			
@@ -87,12 +90,15 @@ public class Game {
 
 			if (!done && !strike) {
 				do {
-					hit = Hit.MISS; // TODO player2 send a hit.
+
+					System.out.print("le joueur2 joue " + "voici son board : \n");
+					b2.print();
+					hit = Hit.MISS; 
 					hit = player2.sendHit(coords);
 					strike = hit != Hit.MISS;
-					if (strike) {
-						b1.print();
-					}
+					b2.setHit(strike, coords);
+					b2.print();
+					
 					System.out.println(makeHitMessage(true /* incoming hit */, coords,  hit));
 					done = updateScore();
 
