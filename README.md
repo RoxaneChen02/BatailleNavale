@@ -11,6 +11,9 @@ il faut remplacer game = game.init(); par game = game.init_vs_AI() et game.run()
 Une fois le jeu lancer il suffit de placer les bateaux à l'aide d'une entrée de la forme  : A0 north, une fois tout les bateaux installés pour attaquer il suffit d'entrer l'attaque
 sous la forme : A0.
 
+#choix fait pour le code
+J'ai choisi de faire commencer mon tableau en 0. 
+
 #Gestion des erreurs 
 Si on tente de mettre un bateau qui finit par sortir du board ou si le bateau finit par chevaucher un autre bateau un message d'erreur s'affiche et il faudra rentrer une nouvelle position. De même tout au long de l'écriture du code j'ai fait attention à gérer les coordonnées out of bound grâce à la méthode isinBoard de la classe Coords.
 
