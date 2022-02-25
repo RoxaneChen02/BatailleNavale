@@ -102,7 +102,7 @@ public class Board implements IBoard, Serializable {
 
 	public boolean putShip(AbstractShip ship, Coords coords){
 		
-		if(canPutShip(ship, coords)){
+		if(canPutShip(ship, coords)&&coords.isInBoard(size)){
 			
 			int x = coords.getX();
 			int y = coords.getY();
@@ -139,11 +139,15 @@ public class Board implements IBoard, Serializable {
 	}
 	
 	public boolean hasShip(Coords coords){
-		
-		if (this.ships[coords.getY()][coords.getX()].getShip() != null){
+
+		if(coords.isInBoard(size)){
+			if (this.ships[coords.getY()][coords.getX()].getShip() != null){
 			return true;
+			}
+			else return false;
 		}
-		else return false;
+		
+		return false;
 	}
 
 	public void setHit(boolean hit, Coords coords){
