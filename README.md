@@ -1,6 +1,6 @@
 # IN203_BatailleNavale
 
-Vous trouverez dans ce fichier mon projet pour le cours de IN203. 
+Vous trouverez dans ce fichier mon projet pour le cours de IN205. 
 Pour le compiler il suffit de se placer dans le dossier bataille-navale-squelette et utiliser la commande :  mvn clean install exec:java 
 
 
